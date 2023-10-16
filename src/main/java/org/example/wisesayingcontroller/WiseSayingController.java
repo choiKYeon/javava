@@ -2,13 +2,10 @@ package org.example.wisesayingcontroller;
 
 import org.example.Container;
 import org.example.Request;
-import org.example.WiseSayingRepository.WiseSayingRepository;
 import org.example.entity.WiseSaying;
 import org.example.service.WiseSayingService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class WiseSayingController {
     private final WiseSayingService wiseSayingService;
