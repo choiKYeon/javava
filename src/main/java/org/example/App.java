@@ -1,10 +1,16 @@
 package org.example;
 
 
+import org.example.DB.DbConnecection;
 import org.example.controller.SystemController;
 import org.example.wisesayingcontroller.WiseSayingController;
 
-public class App {
+public class App { // 입력받은 값들을 실행해주는 클래스 , 계산서
+
+    public App(){
+        DbConnecection db = new DbConnecection();
+        db.connection();
+    }
     public void run() {
         SystemController systemController = new SystemController();
         WiseSayingController wiseSayingController = new WiseSayingController();

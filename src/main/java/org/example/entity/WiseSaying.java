@@ -1,6 +1,6 @@
 package org.example.entity;
 
-public class WiseSaying {
+public class WiseSaying {//private로 설정한 변수들을 저장하는 공간 즉, 명언저장공간 , 저장공간
     private long id;
     private String content;
     private String author;

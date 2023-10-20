@@ -7,7 +7,7 @@ import org.example.service.WiseSayingService;
 
 import java.util.List;
 
-public class WiseSayingController {
+public class WiseSayingController { //값을 입력받는 클래스 ,서빙
     private final WiseSayingService wiseSayingService;
     public WiseSayingController() {
         wiseSayingService = new WiseSayingService();
@@ -80,5 +80,4 @@ public class WiseSayingController {
 
         System.out.println(id + "번 명언이 수정 되었습니다.");
     }
-
 }

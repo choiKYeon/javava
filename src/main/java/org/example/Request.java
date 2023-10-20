@@ -1,7 +1,7 @@
 package org.example;
 import java.util.HashMap;
 import java.util.Map;
-public class Request {
+public class Request { //command를 입력 시, 구문을
     private String actionCode;
     private Map<String, String> params = new HashMap<>();
     public Request(String command) {

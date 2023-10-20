@@ -5,7 +5,7 @@ import org.example.entity.WiseSaying;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WiseSayingRepository {
+public class WiseSayingRepository { // 처음에 입력받은 값들을 정리해주는 클래스 , 요리 서브
     long lastWiseSayingId = 0;
     List<WiseSaying> wiseSayings = new ArrayList<>();
 
