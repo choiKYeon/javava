@@ -23,6 +23,9 @@ public class App {
                 case "회원가입" :
                     titleController.member();
                     break;
+                case "로그인" :
+                    titleController.login();
+                    break;
                 case "고객목록" :
                     titleController.customerlist();
                     break;

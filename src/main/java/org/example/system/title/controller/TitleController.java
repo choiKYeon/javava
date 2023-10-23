@@ -13,6 +13,7 @@ public class TitleController {
     long titleLastId = 0;
     List<Title> titles = new ArrayList<>();
     List<Customer> customers = new ArrayList<>();
+    Customer logincustomer;
 
     public void member() {
         long id = 1;
@@ -52,9 +53,41 @@ public class TitleController {
         }
         Customer customer = new Customer(id, userid, password);
         customers.add(customer);
-        System.out.println("비밀번호가 저장되었습니다.");
+        System.out.println("회원가입이 완료되었습니다.");
         Container.getSc().nextLine();
-        id++;
+
+    }
+
+    public void login() {
+        boolean checkedUserId = false;
+        Customer customer = null;
+
+        System.out.printf("아이디) ");
+        String userId = Container.getSc().nextLine();
+        System.out.printf("비번) ");
+        long password = Container.getSc().nextInt();
+
+        for (int i = 0; i < customers.size(); i++) {
+            if (customers.get(i).getUserId().equals(userId)) {
+                customer = customers.get(i);
+                checkedUserId = true;
+                break;
+            }
+        }
+
+        if (checkedUserId == false) {
+            System.out.println("해당 회원이 존재하지 않습니다.");
+            return;
+        }
+
+        if (customer.getPassword() != password){
+            System.out.println("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
+        logincustomer = customer;
+
+        System.out.println("로그인 성공!" + customer.getUserId() +"님 환영합니다.");
     }
 
     public void customerlist() {
