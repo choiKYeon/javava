@@ -26,7 +26,7 @@ public class TitleController {
             boolean duplicatedUserId = false;
 
             for (int i = 0; i < customers.size(); i++) {
-                if (customers.get(i).getUserId().equals(userid)) {
+                if (customers.get(i).getUserid().equals(userid)) {
                     duplicatedUserId = true;
                 }
             }
@@ -68,7 +68,7 @@ public class TitleController {
         long password = Container.getSc().nextInt();
 
         for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getUserId().equals(userId)) {
+            if (customers.get(i).getUserid().equals(userId)) {
                 customer = customers.get(i);
                 checkedUserId = true;
                 break;
@@ -85,7 +85,7 @@ public class TitleController {
             return;
         }
         logincustomer = customer;
-        System.out.println("로그인 성공!" + customer.getUserId() +"님 환영합니다.");
+        System.out.println("로그인 성공!" + customer.getUserid() +"님 환영합니다.");
         Container.getSc().nextLine();
     }
     public void customerlist() {
@@ -93,7 +93,7 @@ public class TitleController {
         System.out.println("-".repeat(17));
         for (int i = customers.size() - 1; i >= 0; i--) {
             Customer customer = customers.get(i);
-            System.out.printf("%d, %s, %s\n", customer.getId(), customer.getUserId(), customer.getPassword());
+            System.out.printf("%d, %s, %s\n", customer.getId(), customer.getUserid(), customer.getPassword());
         }
     }
     public void write() {
