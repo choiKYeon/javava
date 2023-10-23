@@ -16,21 +16,28 @@ public class App {
             String command = Container.getSc().nextLine().trim();
             Request request = new Request(command);
 
-            if (command.equals("종료")){
-                systemController.exit();
-                break;
-            } else if (command.equals("회원가입")) {
-                titleController.member();
-            } else if (command.equals("고객목록")) {
-                
-            } else if (command.equals("등록")) {
-                titleController.write();
-            } else if (command.equals("목록")) {
-                titleController.list();
-            } else if (command.startsWith("삭제")) {
-                titleController.remove(request);
-            } else if (command.startsWith("수정")) {
-                titleController.modify(request);
+            switch (request.getActioncode()){
+                case "종료" :
+                    systemController.exit();
+                    return;
+                case "회원가입" :
+                    titleController.member();
+                    break;
+                case "고객목록" :
+                    titleController.customerlist();
+                    break;
+                case "등록" :
+                    titleController.write();
+                    break;
+                case "목록" :
+                    titleController.list();
+                    break;
+                case "삭제" :
+                    titleController.remove(request);
+                    break;
+                case "수정" :
+                    titleController.modify(request);
+                    break;
             }
         }
     }

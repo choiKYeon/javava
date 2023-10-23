@@ -35,6 +35,7 @@ public class TitleController {
             }
             break;
         }
+
         long password;
         while (true) {
             System.out.printf("비번) ");
@@ -49,6 +50,8 @@ public class TitleController {
             }
             break;
         }
+        Customer customer = new Customer(id, userid, password);
+        customers.add(customer);
         System.out.println("비밀번호가 저장되었습니다.");
         Container.getSc().nextLine();
         id++;
