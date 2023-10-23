@@ -1,43 +1,32 @@
 package org.example;
 
+import org.example.system.controller.SystemController;
+import org.example.system.title.controller.TitleController;
+import org.example.system.title.entity.Title;
 
-import org.example.DB.DbConnecection;
-import org.example.controller.SystemController;
-import org.example.wisesayingcontroller.WiseSayingController;
-
-public class App { // 입력받은 값들을 실행해주는 클래스 , 계산서
-
-    public App(){
-        DbConnecection db = new DbConnecection();
-        db.connection();
-    }
-    public void run() {
+public class App {
+    public void run(){
+        TitleController titleController = new TitleController();
         SystemController systemController = new SystemController();
-        WiseSayingController wiseSayingController = new WiseSayingController();
-        System.out.println("== 명언 앱 ==");
-        while (true) {
-            System.out.print("명령) ");
-            String command = Container.getSc().nextLine().trim();
 
-            // 삭제?id=1
+        System.out.println("== 프로그램 시작 ==");
+
+        while (true){
+            System.out.print("명령어)");
+            String command = Container.getSc().nextLine().trim();
             Request request = new Request(command);
 
-            switch (request.getActionCode()) {
-                case "종료":
-                    systemController.exit();
-                    return;
-                case "등록":
-                    wiseSayingController.write();
-                    break;
-                case "목록":
-                    wiseSayingController.list();
-                    break;
-                case "삭제":
-                    wiseSayingController.remove(request);
-                    break;
-                case "수정":
-                    wiseSayingController.modify(request);
-                    break;
+            if (command.equals("종료")){
+                systemController.exit();
+                break;
+            } else if (command.equals("등록")) {
+                titleController.write();
+            } else if (command.equals("목록")) {
+                titleController.list();
+            } else if (command.startsWith("삭제")) {
+                titleController.remove(request);
+            } else if (command.startsWith("수정")) {
+                titleController.modify(request);
             }
         }
     }

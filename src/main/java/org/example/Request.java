@@ -1,36 +1,35 @@
 package org.example;
+
 import java.util.HashMap;
 import java.util.Map;
-public class Request { //command를 입력 시, 구문을
-    private String actionCode;
+
+public class Request {
+    private String actioncode;
     private Map<String, String> params = new HashMap<>();
-    public Request(String command) {
+
+    public Request(String command){
         String[] commandBits = command.split("\\?", 2);
-        // 삭제?id=1 & 삭제?id=2 & 삭제?id=3
-        actionCode = commandBits[0];
-        if (commandBits.length == 1) return;
-        String[] paramsBits = commandBits[1].split("&");
-        for (String paramStr : paramsBits) {
-            String[] paramStrBits = paramStr.split("=",2);
-            if (paramStrBits.length == 1) {
-                continue;
-            }
-            String key = paramStrBits[0];
-            String value = paramStrBits[1];
+        actioncode = commandBits[0];
+
+        if (commandBits.length == 1){return;}
+
+        String[] paramsBits = new String[]{commandBits[1]};
+        for (String paramsStr : paramsBits){
+            String[] paramsStrBits = paramsStr.split("=", 2);
+            String key = paramsStrBits[0];
+            String value = paramsStrBits[1];
+
             params.put(key, value);
         }
-    }
-    public String getActionCode() {
-        return this.actionCode;
-    }
-    public String getParam(String name) {
-        return params.get(name);
-    }
 
-    public int getParam (String name, int defaultValue) {
-        try {
-            return Integer.parseInt(getParam(name));
-        } catch (NumberFormatException e) {
+    }
+    public String getActioncode() {
+        return actioncode;
+    }
+    public int getIntParams(String name, int defaultValue){
+        try{
+            return Integer.parseInt(params.get(name));
+        }catch (NumberFormatException e){
 
         }
         return defaultValue;
