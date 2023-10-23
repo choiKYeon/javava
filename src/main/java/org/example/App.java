@@ -2,7 +2,6 @@ package org.example;
 
 import org.example.system.controller.SystemController;
 import org.example.system.title.controller.TitleController;
-import org.example.system.title.entity.Title;
 
 public class App {
     public void run(){

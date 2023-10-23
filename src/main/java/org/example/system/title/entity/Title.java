@@ -3,9 +3,6 @@ package org.example.system.title.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.lang.reflect.Member;
-
-
 @Getter
 @Setter
 public class Title {
