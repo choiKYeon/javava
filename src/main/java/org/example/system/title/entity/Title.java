@@ -1,9 +1,12 @@
 package org.example.system.title.entity;
 
+import java.lang.reflect.Member;
+
 public class Title {
     private long id;
     private String titleName;
     private String content;
+
     public Title(long id, String titleName, String content){
         this.id = id;
         this.titleName = titleName;

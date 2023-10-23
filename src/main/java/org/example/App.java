@@ -19,6 +19,10 @@ public class App {
             if (command.equals("종료")){
                 systemController.exit();
                 break;
+            } else if (command.equals("회원가입")) {
+                titleController.member();
+            } else if (command.equals("고객목록")) {
+                
             } else if (command.equals("등록")) {
                 titleController.write();
             } else if (command.equals("목록")) {
