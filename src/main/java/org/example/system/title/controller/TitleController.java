@@ -74,22 +74,20 @@ public class TitleController {
                 break;
             }
         }
-
         if (checkedUserId == false) {
             System.out.println("해당 회원이 존재하지 않습니다.");
+            Container.getSc().nextLine();
             return;
         }
-
         if (customer.getPassword() != password){
             System.out.println("비밀번호가 일치하지 않습니다.");
+            Container.getSc().nextLine();
             return;
         }
-
         logincustomer = customer;
-
         System.out.println("로그인 성공!" + customer.getUserId() +"님 환영합니다.");
+        Container.getSc().nextLine();
     }
-
     public void customerlist() {
         System.out.println("번호 / 고객아이디 / 고객비밀번호");
         System.out.println("-".repeat(17));
@@ -98,7 +96,6 @@ public class TitleController {
             System.out.printf("%d, %s, %s\n", customer.getId(), customer.getUserId(), customer.getPassword());
         }
     }
-
     public void write() {
         long id = titleLastId + 1;
 
@@ -112,7 +109,6 @@ public class TitleController {
 
         titleLastId++;
     }
-
     public void list() {
         System.out.println("번호 / 제목 / 내용");
         System.out.println("-".repeat(17));
@@ -121,7 +117,6 @@ public class TitleController {
             System.out.printf("%d, %s, %s\n", title.getId(), title.getTitleName(), title.getContent());
         }
     }
-
     public void remove(Request request) {
         int id = request.getIntParams("id", -1);
 
@@ -137,7 +132,6 @@ public class TitleController {
         titles.remove(title);
         System.out.println(id + "번 목록이 삭제되었습니다.");
     }
-
     public void modify(Request request) {
         int id = request.getIntParams("id", -1);
 
@@ -163,7 +157,6 @@ public class TitleController {
 
         System.out.println(id + "번 목록이 수정되었습니다.");
     }
-
     public Title findById(int id) {
         for (Title title : titles) {
             if (title.getId() == id) {

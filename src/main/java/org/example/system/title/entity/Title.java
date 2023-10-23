@@ -1,8 +1,15 @@
 package org.example.system.title.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.lang.reflect.Member;
 
+
+@Getter
+@Setter
 public class Title {
+
     private long id;
     private String titleName;
     private String content;
@@ -12,19 +19,5 @@ public class Title {
         this.titleName = titleName;
         this.content = content;
     }
-    public long getId() {
-        return id;
-    }
-    public String getTitleName() {
-        return titleName;
-    }
-    public String getContent() {
-        return content;
-    }
-    public void setContent(String content) {
-        this.content = content;
-    }
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
-    }
+
 }

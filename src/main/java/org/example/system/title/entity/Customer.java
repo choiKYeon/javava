@@ -1,5 +1,11 @@
 package org.example.system.title.entity;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Customer {
     private long id;
     private String userid;
@@ -8,14 +14,5 @@ public class Customer {
         this.id = id;
         this.userid = userid;
         this.password = password;
-    }
-    public long getId() {
-        return id;
-    }
-    public String getUserId() {
-        return userid;
-    }
-    public long getPassword() {
-        return password;
     }
 }
