@@ -40,6 +40,9 @@ public class App {
                 case "수정" :
                     titleController.modify(request);
                     break;
+                case "로그아웃" :
+                    titleController.logout();
+                    break;
             }
         }
     }

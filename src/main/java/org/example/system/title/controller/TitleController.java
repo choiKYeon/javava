@@ -12,7 +12,7 @@ public class TitleController {
     long titleLastId = 0;
     List<Title> titles = new ArrayList<>();
     List<Customer> customers = new ArrayList<>();
-    Customer logincustomer;
+    Customer logincustomer = null;
 
     public void member() {
         long id = 1;
@@ -83,10 +83,25 @@ public class TitleController {
             Container.getSc().nextLine();
             return;
         }
+        if (logincustomer != null){
+            System.out.println("이미 로그인 상태입니다.");
+            Container.getSc().nextLine();
+            return;
+        }
         logincustomer = customer;
         System.out.println("로그인 성공!" + customer.getUserid() +"님 환영합니다.");
         Container.getSc().nextLine();
     }
+
+    public void logout(){
+        if (logincustomer == null){
+            System.out.println("로그인 상태가 아닙니다.");
+        }else {
+            logincustomer = null;
+            System.out.println("로그아웃 되었습니다.");
+        }
+    }
+
     public void customerlist() {
         System.out.println("번호 / 고객아이디 / 고객비밀번호");
         System.out.println("-".repeat(17));
@@ -95,6 +110,7 @@ public class TitleController {
             System.out.printf("%d, %s, %s\n", customer.getId(), customer.getUserid(), customer.getPassword());
         }
     }
+
     public void write() {
         long id = titleLastId + 1;
 
