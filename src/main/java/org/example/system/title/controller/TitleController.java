@@ -19,6 +19,15 @@ public class TitleController {
 
         String userid;
 
+        if (logincustomer == null){
+            Customer customer = new Customer(1, "홍길동", 1234);
+            customers.add(customer);
+            customer = new Customer(2, "홍길순", 12345);
+            customers.add(customer);
+            customer = new Customer(3, "임꺽정", 123456);
+            customers.add(customer);
+        }
+
         while (true) {
             System.out.printf("아이디) ");
             userid = Container.getSc().nextLine();
@@ -54,12 +63,12 @@ public class TitleController {
         customers.add(customer);
         System.out.println("회원가입이 완료되었습니다.");
         Container.getSc().nextLine();
-
     }
 
     public void login() {
         boolean checkedUserId = false;
         Customer customer = null;
+
 
         System.out.printf("아이디) ");
         String userId = Container.getSc().nextLine();
