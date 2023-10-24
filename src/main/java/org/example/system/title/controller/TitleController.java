@@ -16,10 +16,8 @@ public class TitleController {
 
     public void member() {
         long id = 1;
-
         String userid;
-
-        if (logincustomer == null){
+        if (logincustomer == null) {
             Customer customer = new Customer(1, "홍길동", 1234);
             customers.add(customer);
             customer = new Customer(2, "홍길순", 12345);
@@ -27,7 +25,6 @@ public class TitleController {
             customer = new Customer(3, "임꺽정", 123456);
             customers.add(customer);
         }
-
         while (true) {
             System.out.printf("아이디) ");
             userid = Container.getSc().nextLine();
@@ -44,7 +41,6 @@ public class TitleController {
             }
             break;
         }
-
         long password;
         while (true) {
             System.out.printf("비번) ");
@@ -69,7 +65,6 @@ public class TitleController {
         boolean checkedUserId = false;
         Customer customer = null;
 
-
         System.out.printf("아이디) ");
         String userId = Container.getSc().nextLine();
         System.out.printf("비번) ");
@@ -87,25 +82,25 @@ public class TitleController {
             Container.getSc().nextLine();
             return;
         }
-        if (customer.getPassword() != password){
+        if (customer.getPassword() != password) {
             System.out.println("비밀번호가 일치하지 않습니다.");
             Container.getSc().nextLine();
             return;
         }
-        if (logincustomer != null){
+        if (logincustomer != null) {
             System.out.println("이미 로그인 상태입니다.");
             Container.getSc().nextLine();
             return;
         }
         logincustomer = customer;
-        System.out.println("로그인 성공!" + customer.getUserid() +"님 환영합니다.");
+        System.out.println("로그인 성공!" + customer.getUserid() + "님 환영합니다.");
         Container.getSc().nextLine();
     }
 
-    public void logout(){
-        if (logincustomer == null){
+    public void logout() {
+        if (logincustomer == null) {
             System.out.println("로그인 상태가 아닙니다.");
-        }else {
+        } else {
             logincustomer = null;
             System.out.println("로그아웃 되었습니다.");
         }
@@ -123,7 +118,7 @@ public class TitleController {
     public void write() {
         long id = titleLastId + 1;
 
-        if (logincustomer == null){
+        if (logincustomer == null) {
             System.out.println("로그인 상태가 아닙니다.");
             return;
         }
@@ -133,28 +128,35 @@ public class TitleController {
         System.out.print("내용 :");
         String content = Container.getSc().nextLine().trim();
         System.out.println(id + "번 게시글이 등록되었습니다.");
-        Title title = new Title(id, titleName, content);
+        Title title = new Title(id, titleName, content, logincustomer.getUserid());
         titles.add(title);
 
         titleLastId++;
     }
     public void list() {
 
-        if (logincustomer == null){
+        if (logincustomer == null) {
             System.out.println("로그인 상태가 아닙니다.");
             return;
         }
 
         System.out.println("번호 / 제목 / 내용/ 작성자");
-        System.out.println("-".repeat(24));
+        System.out.println("-".repeat(23));
         for (int i = titles.size() - 1; i >= 0; i--) {
             Title title = titles.get(i);
-            System.out.printf("%d, %s, %s, %s\n", title.getId(), title.getTitleName(), title.getContent(), logincustomer.getUserid());
+            System.out.printf("%d, %s, %s, %s\n", title.getId(), title.getTitleName(), title.getContent(), title.getUserId());
         }
     }
 
     public void remove(Request request) {
+
+        if (logincustomer == null) {
+            System.out.println("로그인 상태가 아닙니다.");
+            return;
+        }
+
         int id = request.getIntParams("id", -1);
+
 
         if (id == -1) {
             System.out.println("정수 id값을 입력해주세요.");
@@ -165,8 +167,19 @@ public class TitleController {
             System.out.println("목록이 존재하지 않습니다");
             return;
         }
+
+        String userId = logincustomer.getUserid();
+        Customer customer = this.findByUserId(userId);
+        if (title.getUserId() != logincustomer.getUserid()){
+            System.out.println("접근할 수 없는 게시물 입니다.");
+            return;
+        }
+        if (customer == null){
+            System.out.println("게시글이 존재하지 않습니다.");
+            return;
+        }
         titles.remove(title);
-        System.out.println(id + "번 목록이 삭제되었습니다.");
+        System.out.println("삭제되었습니다.");
     }
 
     public void modify(Request request) {
@@ -199,6 +212,16 @@ public class TitleController {
         for (Title title : titles) {
             if (title.getId() == id) {
                 return title;
+            }
+        }
+        return null;
+    }
+
+    private Customer findByUserId(String userId) {
+        for (int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            if (customer.getUserid().equals(userId)){
+                return customer;
             }
         }
         return null;

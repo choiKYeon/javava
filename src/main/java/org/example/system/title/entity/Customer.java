@@ -9,6 +9,7 @@ public class Customer {
     private long id;
     private String userid;
     private long password;
+
     public Customer(long id, String userid, long password){
         this.id = id;
         this.userid = userid;
