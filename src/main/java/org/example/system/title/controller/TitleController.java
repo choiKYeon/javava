@@ -123,6 +123,11 @@ public class TitleController {
     public void write() {
         long id = titleLastId + 1;
 
+        if (logincustomer == null){
+            System.out.println("로그인 상태가 아닙니다.");
+            return;
+        }
+
         System.out.print("제목 :");
         String titleName = Container.getSc().nextLine().trim();
         System.out.print("내용 :");
@@ -134,13 +139,20 @@ public class TitleController {
         titleLastId++;
     }
     public void list() {
-        System.out.println("번호 / 제목 / 내용");
-        System.out.println("-".repeat(17));
+
+        if (logincustomer == null){
+            System.out.println("로그인 상태가 아닙니다.");
+            return;
+        }
+
+        System.out.println("번호 / 제목 / 내용/ 작성자");
+        System.out.println("-".repeat(24));
         for (int i = titles.size() - 1; i >= 0; i--) {
             Title title = titles.get(i);
-            System.out.printf("%d, %s, %s\n", title.getId(), title.getTitleName(), title.getContent());
+            System.out.printf("%d, %s, %s, %s\n", title.getId(), title.getTitleName(), title.getContent(), logincustomer.getUserid());
         }
     }
+
     public void remove(Request request) {
         int id = request.getIntParams("id", -1);
 
@@ -156,6 +168,7 @@ public class TitleController {
         titles.remove(title);
         System.out.println(id + "번 목록이 삭제되었습니다.");
     }
+
     public void modify(Request request) {
         int id = request.getIntParams("id", -1);
 
@@ -181,6 +194,7 @@ public class TitleController {
 
         System.out.println(id + "번 목록이 수정되었습니다.");
     }
+
     public Title findById(int id) {
         for (Title title : titles) {
             if (title.getId() == id) {
