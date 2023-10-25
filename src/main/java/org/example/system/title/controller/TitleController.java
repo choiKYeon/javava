@@ -9,219 +9,161 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TitleController {
-    long titleLastId = 0;
     List<Title> titles = new ArrayList<>();
     List<Customer> customers = new ArrayList<>();
-    Customer logincustomer = null;
+    long lastWiseSaying = 0;
+    Customer checkedlogin = null;
 
+    //회원가입
     public void member() {
         long id = 1;
-        String userid;
-        if (logincustomer == null) {
-            Customer customer = new Customer(1, "홍길동", 1234);
+        String userId;
+        if (checkedlogin == null) {
+            Customer customer = new Customer(1, "홍길동", "1234");
             customers.add(customer);
-            customer = new Customer(2, "홍길순", 12345);
-            customers.add(customer);
-            customer = new Customer(3, "임꺽정", 123456);
-            customers.add(customer);
+            Customer customer1 = new Customer(2, "홍길순", "12345");
+            customers.add(customer1);
+            Customer customer2 = new Customer(3, "임꺽정", "123456");
+            customers.add(customer2);
         }
         while (true) {
-            System.out.printf("아이디) ");
-            userid = Container.getSc().nextLine();
-            boolean duplicatedUserId = false;
+            System.out.print("새 아이디 :");
+            userId = Container.getSc().nextLine().trim();
+            boolean logincheck = false;
 
             for (int i = 0; i < customers.size(); i++) {
-                if (customers.get(i).getUserid().equals(userid)) {
-                    duplicatedUserId = true;
+                if (customers.get(i).getUserId().equals(userId)) {
+                    logincheck = true;
                 }
             }
-            if (duplicatedUserId) {
-                System.out.println("존재하는 아이디 입니다.");
+            if (logincheck != false) {
+                System.out.println("이미 존재하는 아이디입니다. 새로 입력해주세요.");
                 continue;
             }
             break;
         }
-        long password;
+        String password;
+
         while (true) {
-            System.out.printf("비번) ");
-            password = Container.getSc().nextInt();
 
-            System.out.printf("비번 확인) ");
-            long passwordConfirm = Container.getSc().nextInt();
-
-            if (password != passwordConfirm) {
-                System.out.println("비밀번호가 일치하지 않습니다.");
+            System.out.print("새 비밀번호 :");
+            password = Container.getSc().nextLine().trim();
+            System.out.print("새 비밀번호 재확인 :");
+            String passwordcheck = Container.getSc().nextLine().trim();
+            if (password.equals(passwordcheck)){
+                System.out.println("비밀번호가 입력되었습니다.");
+            } else if (password != passwordcheck) {
+                System.out.println("비밀번호가 다릅니다. 다시 입력해주세요.");
                 continue;
             }
             break;
         }
-        Customer customer = new Customer(id, userid, password);
+        Customer customer = new Customer(id, userId, password);
         customers.add(customer);
-        System.out.println("회원가입이 완료되었습니다.");
-        Container.getSc().nextLine();
+        System.out.println("회원가입이 완료되었습니다. 환영합니다.");
     }
-
-    public void login() {
-        boolean checkedUserId = false;
+    public void login(){
+        boolean useridchecked = false;
         Customer customer = null;
 
-        System.out.printf("아이디) ");
-        String userId = Container.getSc().nextLine();
-        System.out.printf("비번) ");
-        long password = Container.getSc().nextInt();
+        if (checkedlogin != null){
+            System.out.println("이미 로그인 되어있습니다.");
+            return;
+        }
 
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getUserid().equals(userId)) {
+        System.out.print("아이디 :");
+        String userid = Container.getSc().nextLine().trim();
+        System.out.print("비밀번호 :");
+        String password = Container.getSc().nextLine().trim();
+
+        for (int i = 0; i < customers.size(); i++){
+            if (customers.get(i).getUserId().equals(userid)){
                 customer = customers.get(i);
-                checkedUserId = true;
-                break;
+               useridchecked = true;
             }
         }
-        if (checkedUserId == false) {
-            System.out.println("해당 회원이 존재하지 않습니다.");
-            Container.getSc().nextLine();
+        if (useridchecked == false){
+            System.out.println("아이디를 다시 입력해주세요.");
             return;
         }
-        if (customer.getPassword() != password) {
-            System.out.println("비밀번호가 일치하지 않습니다.");
-            Container.getSc().nextLine();
+        if (customer.getPassword().equals(password) == false){
+            System.out.println("비밀번호가 다릅니다. 다시입력해주세요.");
             return;
         }
-        if (logincustomer != null) {
-            System.out.println("이미 로그인 상태입니다.");
-            Container.getSc().nextLine();
-            return;
-        }
-        logincustomer = customer;
-        System.out.println("로그인 성공!" + customer.getUserid() + "님 환영합니다.");
-        Container.getSc().nextLine();
+        checkedlogin = customer;
+        System.out.println("로그인 되었습니다.");
     }
-
-    public void logout() {
-        if (logincustomer == null) {
-            System.out.println("로그인 상태가 아닙니다.");
-        } else {
-            logincustomer = null;
-            System.out.println("로그아웃 되었습니다.");
-        }
-    }
-
-    public void customerlist() {
-        System.out.println("번호 / 고객아이디 / 고객비밀번호");
-        System.out.println("-".repeat(17));
-        for (int i = customers.size() - 1; i >= 0; i--) {
-            Customer customer = customers.get(i);
-            System.out.printf("%d, %s, %s\n", customer.getId(), customer.getUserid(), customer.getPassword());
-        }
-    }
-
     public void write() {
-        long id = titleLastId + 1;
-
-        if (logincustomer == null) {
-            System.out.println("로그인 상태가 아닙니다.");
-            return;
-        }
-
-        System.out.print("제목 :");
-        String titleName = Container.getSc().nextLine().trim();
-        System.out.print("내용 :");
+        long id = lastWiseSaying + 1;
+        System.out.print("명언 :");
         String content = Container.getSc().nextLine().trim();
-        System.out.println(id + "번 게시글이 등록되었습니다.");
-        Title title = new Title(id, titleName, content, logincustomer.getUserid());
+        System.out.print("작가 :");
+        String author = Container.getSc().nextLine().trim();
+        System.out.println(id + "번 명언이 등록되었습니다.");
+        Title title = new Title(id, content, author);
         titles.add(title);
 
-        titleLastId++;
+        lastWiseSaying++;
     }
+
     public void list() {
-
-        if (logincustomer == null) {
-            System.out.println("로그인 상태가 아닙니다.");
-            return;
-        }
-
-        System.out.println("번호 / 제목 / 내용/ 작성자");
-        System.out.println("-".repeat(23));
+        System.out.println("번호 / 작가 / 명언");
+        System.out.println("-".repeat(17));
         for (int i = titles.size() - 1; i >= 0; i--) {
             Title title = titles.get(i);
-            System.out.printf("%d, %s, %s, %s\n", title.getId(), title.getTitleName(), title.getContent(), title.getUserId());
+            System.out.printf("%d, %s, %s\n", title.getId(), title.getAuthor(), title.getContent());
         }
     }
 
     public void remove(Request request) {
+        int id = request.getIntparams("id", -1);
 
-        if (logincustomer == null) {
-            System.out.println("로그인 상태가 아닙니다.");
-            return;
-        }
-
-        int id = request.getIntParams("id", -1);
-
-
+//             수정하기
         if (id == -1) {
-            System.out.println("정수 id값을 입력해주세요.");
-            return;
-        }
-        Title title = findById(id);
-        if (findById(id) == null) {
-            System.out.println("목록이 존재하지 않습니다");
+            System.out.println("정수 id 값을 입력해주세요.");
             return;
         }
 
-        String userId = logincustomer.getUserid();
-        Customer customer = this.findByUserId(userId);
-        if (title.getUserId() != logincustomer.getUserid()){
-            System.out.println("접근할 수 없는 게시물 입니다.");
-            return;
-        }
-        if (customer == null){
-            System.out.println("게시글이 존재하지 않습니다.");
-            return;
+        Title title = findById(id);
+
+        if (title == null) {
+            System.out.println("값을 입력해주세요.");
         }
         titles.remove(title);
-        System.out.println("삭제되었습니다.");
+        System.out.println(id + "번 목록이 삭제되었습니다.");
     }
 
     public void modify(Request request) {
-        int id = request.getIntParams("id", -1);
+        int id = request.getIntparams("id", -1);
 
+//             수정하기
         if (id == -1) {
-            System.out.println("정수 id값을 입력해주세요.");
+            System.out.println("정수 id 값을 입력해주세요.");
             return;
         }
+
         Title title = findById(id);
-        if (findById(id) == null) {
-            System.out.println("목록이 존재하지 않습니다");
-            return;
+
+        if (title == null) {
+            System.out.println("값을 입력해주세요.");
         }
-        System.out.printf("기존 제목 : %s\n", title.getTitleName());
-        System.out.print("제목 :");
-        String titleName = Container.getSc().nextLine().trim();
-
-        System.out.printf("기존 내용 : %s\n", title.getTitleName());
-        System.out.print("내용 :");
+        System.out.printf("기존 명언 :%s\n", title.getContent());
+        System.out.print("명언 :");
         String content = Container.getSc().nextLine().trim();
+        System.out.printf("기존 작가 :%s\n", title.getAuthor());
+        System.out.print("작가 :");
+        String author = Container.getSc().nextLine().trim();
 
-        title.setTitleName(titleName);
         title.setContent(content);
+        title.setAuthor(author);
 
-        System.out.println(id + "번 목록이 수정되었습니다.");
+        System.out.println("목록이 수정되었습니다.");
     }
 
     public Title findById(int id) {
         for (Title title : titles) {
             if (title.getId() == id) {
                 return title;
-            }
-        }
-        return null;
-    }
-
-    private Customer findByUserId(String userId) {
-        for (int i = 0; i < customers.size(); i++) {
-            Customer customer = customers.get(i);
-            if (customer.getUserid().equals(userId)){
-                return customer;
             }
         }
         return null;

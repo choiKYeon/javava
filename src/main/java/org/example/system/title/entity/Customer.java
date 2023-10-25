@@ -7,12 +7,11 @@ import lombok.Setter;
 @Setter
 public class Customer {
     private long id;
-    private String userid;
-    private long password;
-
-    public Customer(long id, String userid, long password){
+    private String userId;
+    private String password;
+    public Customer(long id, String userId, String password){
         this.id = id;
-        this.userid = userid;
+        this.userId = userId;
         this.password = password;
     }
 }
