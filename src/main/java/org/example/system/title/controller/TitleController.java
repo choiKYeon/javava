@@ -93,6 +93,18 @@ public class TitleController {
         checkedlogin = customer;
         System.out.println("로그인 되었습니다.");
     }
+    public void logout(){
+        if (checkedlogin != null){
+            checkedlogin = null;
+            System.out.println("로그아웃 되었습니다.");
+            return;
+        }
+        if (checkedlogin == null){
+            System.out.println("로그인 해주세요.");
+            return;
+        }
+    }
+
     public void write() {
         long id = lastWiseSaying + 1;
         System.out.print("명언 :");
