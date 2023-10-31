@@ -5,14 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Title {
+public class WiseSaying {
     private long id;
     private String content;
     private String author;
-    public Title(long id, String content, String author){
+    public WiseSaying(long id, String author, String content){
         this.id = id;
-        this.content = content;
         this.author = author;
+        this.content = content;
     }
 
 }

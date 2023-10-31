@@ -14,4 +14,5 @@ public class Customer {
         this.userId = userId;
         this.password = password;
     }
+
 }
